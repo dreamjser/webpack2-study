@@ -1,21 +1,23 @@
 'use strict';
 
-import connect = import 'gulp-connect';
-import nodemon = import 'gulp-nodemon';
+const gulp = require('gulp');
+const connect = require('gulp-connect');
+const reproxy = require("gulp-connect-reproxy");
+const nodemon = require('gulp-nodemon');
+const runSequence = require('run-sequence');
 
 // 路径
 const paths = {
-    client: [
-      'src/js/**/',
-      'src/sass/**',
-      'src/component/**'
-    ],
-    server: 'app.js'
+  entry: 'app.js',
+  server: [
+    'app.js',
+    'views/**'
+  ]
 };
 
 // 监听的静态文件路径
 const watchAssets = {
-  scss: ['src/sass/**'],
+  sass: ['src/sass/**'],
   js: [
     'src/js/**',
     'src/components/**'
@@ -24,48 +26,53 @@ const watchAssets = {
 
 // nodemon 的配置
 const nodemonConfig = {
-    script: paths.server,
-    ignore: [
-        "node_modules/**"
-    ],
-    env: {
-        "NODE_ENV": "development"
-    }
+  script: paths.entry,
+  ignore: [
+    "node_modules/**",
+    "gulpfile.js"
+  ],
+  env: {
+    "NODE_ENV": "development"
+  }
 };
 
 // 使用 nodemone 跑起服务器
-gulp.task('server', ['connect'], function() {
-    return nodemon(nodemonConfig);
+gulp.task('node', function() {
+  return nodemon(nodemonConfig);
 });
 
-// scss编译
-gulp.task('scss', function() {
-  return gulp.src(['src/sass/**/[^_]*.scss'])
-    .pipe(development(sourcemaps.init()))
-    .pipe(scss().on('error', scss.logError))
-    .pipe(development(sourcemaps.write()))
-    .pipe(production(autoprefixer()))
-    .pipe(gulp.dest('src/css'));
-});
-
-// 本地服务
-gulp.task('connect', function() {
+// 启动服务器
+gulp.task('connect', ['node'], function() {
   connect.server({
-    root: './',
-    livereload: true
+    name: 'Dist App',
+    root: 'views',
+    port: 4000,
+    livereload: true,
+    middleware: function(connect, options) {
+      options.server = "192.168.36.66:8000";
+      let proxy = new reproxy(options);
+
+      return [proxy];
+    }
   });
 });
 
+gulp.task('server', function() {
+  gulp.src(paths.server)
+    .pipe(connect.reload());
+});
+
 // 监听
-gulp.task('watch', function() {
-  gulp.watch(watchAssets.scss, ['scss'])
-    .on('change', function() {
-      gulp.src(watchAssets.scss)
-        .pipe(connect.reload());
-    });
-  gulp.watch(watchAssets.js, ['js'])
-    .on('change', function() {
-      gulp.src(watchAssets.js)
-        .pipe(connect.reload());
-    });
+gulp.task('watch', ['connect'], function() {
+  gulp.watch(paths.server, ['server']);
+});
+
+// sass编译
+gulp.task('sass', function() {
+  return gulp.src(['src/sass/**/[^_]*.scss'])
+    .pipe(development(sourcemaps.init()))
+    .pipe(sass().on('error', sass.logError))
+    .pipe(development(sourcemaps.write()))
+    .pipe(production(autoprefixer()))
+    .pipe(gulp.dest('src/css'));
 });
