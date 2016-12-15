@@ -1,0 +1,24 @@
+{
+  "name": "webpack2-study",
+  "version": "1.0.0",
+  "description": "study webpack2",
+  "main": "index.js",
+  "repository": "git@github.com:dreamjser/webpack2-study.git",
+  "author": "sunyg <1169771179@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "extract-text-webpack-plugin": "2.0.0-beta.4",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-environments": "^0.1.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.0.0",
+    "gulp-sourcemaps": "^1.9.1",
+    "pug": "^2.0.0-beta6",
+    "run-sequence": "^1.2.2",
+    "webpack": "2.1.0-beta.28"
+  }
+}
