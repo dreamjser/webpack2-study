@@ -6,13 +6,18 @@
   "repository": "git@github.com:dreamjser/webpack2-study.git",
   "author": "sunyg <1169771179@qq.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "webpack-dev-server --hot"
+  },
   "dependencies": {
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.1.1",
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-connect": "^5.0.0",
-    "gulp-connect-reproxy": "^0.0.98",
     "gulp-environments": "^0.1.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-plumber": "^1.1.0",
@@ -20,6 +25,8 @@
     "gulp-sourcemaps": "^1.9.1",
     "pug": "^2.0.0-beta6",
     "run-sequence": "^1.2.2",
-    "webpack": "2.1.0-beta.28"
+    "webpack": "v2.2.0-rc.0",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-stream": "^3.2.0"
   }
 }

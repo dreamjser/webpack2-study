@@ -6,7 +6,7 @@ const app = express();
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-app.get('/', (req, res) => res.render('index', { title: 'webpack2fff'}) );
+app.get('/', (req, res) => res.render('index', { title: 'webpack2'}) );
 
 app.listen(8000);
 console.log('start');

@@ -2,77 +2,81 @@
 
 const gulp = require('gulp');
 const connect = require('gulp-connect');
-const reproxy = require("gulp-connect-reproxy");
 const nodemon = require('gulp-nodemon');
 const runSequence = require('run-sequence');
+const webpack = require('webpack-stream');
+const webpackDevServer = require("webpack-dev-server");
+const plumber = require('gulp-plumber');
 
 // 路径
 const paths = {
-  entry: 'app.js',
-  server: [
-    'app.js',
-    'views/**'
+	entry: 'app.js',
+	html: [
+		'src/views/**'
+	],
+  js: [
+    'src/js/**',
+    'src/components/**'
   ]
 };
 
 // 监听的静态文件路径
 const watchAssets = {
-  sass: ['src/sass/**'],
-  js: [
-    'src/js/**',
-    'src/components/**'
-  ]
+	sass: ['src/sass/**'],
+	js: [
+		'src/js/**',
+		'src/components/**'
+	]
 }
 
-// nodemon 的配置
-const nodemonConfig = {
-  script: paths.entry,
-  ignore: [
-    "node_modules/**",
-    "gulpfile.js"
-  ],
-  env: {
-    "NODE_ENV": "development"
-  }
-};
-
-// 使用 nodemone 跑起服务器
-gulp.task('node', function() {
-  return nodemon(nodemonConfig);
+// 启动本地服务器
+gulp.task('connect', function () {
+	connect.server({
+		root: './',
+		port: 8000,
+		livereload: true
+	});
 });
 
-// 启动服务器
-gulp.task('connect', ['node'], function() {
-  connect.server({
-    name: 'Dist App',
-    root: 'views',
-    port: 4000,
-    livereload: true,
-    middleware: function(connect, options) {
-      options.server = "192.168.36.66:8000";
-      let proxy = new reproxy(options);
+// 开启node服务器
+gulp.task('node', function () {
+	return nodemon({
+		script: 'app.js',
+		ignore:[
+      'node_modules/**',
+      'gulpfile.js'
+    ],
+		env: {
+			'NODE_ENV': 'development'
+		}
+	});
+})
 
-      return [proxy];
-    }
-  });
+gulp.task('html', function () {
+	gulp.src(paths.html)
+		.pipe(connect.reload());
 });
 
-gulp.task('server', function() {
-  gulp.src(paths.server)
+gulp.task('js', function () {
+  gulp.src(paths.html)
     .pipe(connect.reload());
 });
 
-// 监听
-gulp.task('watch', ['connect'], function() {
-  gulp.watch(paths.server, ['server']);
+// js
+gulp.task('webpack', function () {
+	return gulp.src('')
+		.pipe(plumber())
+		.pipe(webpack(require('./webpack.config.js')))
+		.pipe(gulp.dest(''));
 });
 
-// sass编译
-gulp.task('sass', function() {
-  return gulp.src(['src/sass/**/[^_]*.scss'])
-    .pipe(development(sourcemaps.init()))
-    .pipe(sass().on('error', sass.logError))
-    .pipe(development(sourcemaps.write()))
-    .pipe(production(autoprefixer()))
-    .pipe(gulp.dest('src/css'));
+// 监听
+gulp.task('watch', function () {
+	gulp.watch(paths.html, ['html']);
+  gulp.watch(paths.js, ['js']);
+});
+
+// 开发 task
+gulp.task('build', function() {
+  runSequence(['webpack'], 'connect', 'watch');
 });
