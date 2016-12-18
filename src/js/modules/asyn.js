@@ -2,7 +2,7 @@ let app;
 
 app = {
   init: function(){
-    console.log('ffdsf');
+    console.log('hhhh');
   }
 }
 

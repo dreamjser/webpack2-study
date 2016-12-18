@@ -75,7 +75,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "ensure/" + "886b84ced2abb8e1fa41" + ".js";
+/******/ 		script.src = __webpack_require__.p + "./src/js/ensure/" + "82353da4332794d11c47" + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -141,6 +141,11 @@
 /******/ ([
 /* 0 */,
 /* 1 */
+/* unknown exports provided */
+/* all exports used */
+/*!*******************************!*\
+  !*** ./src/js/entry/index.js ***!
+  \*******************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -149,11 +154,9 @@
 var app = {};
 
 document.body.onclick = function () {
-  __webpack_require__.e/* nsure */(0).then((function () {
-    var app = __webpack_require__(0);
-
-    app.default.init();
-  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+  __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, /*! ../modules/asyn */ 0)).then(function (asyn) {
+    return asyn.default.init();
+  });
 };
 
 module.exports = app;

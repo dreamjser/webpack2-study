@@ -17,7 +17,8 @@ let config = {
     path: __dirname,
     publicPath: 'http://node.dreamjser.com/',
     filename: paths.output + '[name].js',
-    chunkFilename: paths.ensure + '[hash].js'
+    chunkFilename: paths.ensure + '[hash].js',
+    pathinfo: true
   },
   module: {
     rules: [{
@@ -27,7 +28,7 @@ let config = {
         ]
       }]
   },
-  watch: true,
+  watch:true,
   devServer: {
     port: 8000
   }

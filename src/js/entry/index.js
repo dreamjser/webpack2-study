@@ -1,11 +1,7 @@
 let app = {};
 
 document.body.onclick = function(){
-  require.ensure([], function(){
-    var app = require('../modules/asyn');
-
-    app.default.init();
-  });
+  System.import('../modules/asyn').then((asyn) => asyn.default.init())
 }
 
 
