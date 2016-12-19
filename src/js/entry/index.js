@@ -1,7 +1,7 @@
 let app = {};
 
 document.body.onclick = function(){
-  System.import('../modules/asyn').then((asyn) => asyn.default.init())
+  System.import('mask').then((mask) => mask.default.init())
 }
 
 
