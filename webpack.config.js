@@ -75,7 +75,7 @@ let config = {
 	devServer: {
 		port: 8000
 	},
-	devtool: 'source-map',
+	devtool: 'eval()',
 }
 
 module.exports = config;
