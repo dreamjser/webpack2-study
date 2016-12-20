@@ -1,5 +1,6 @@
 import styles from './mask.css';
 import template from './mask.pug';
+import $ from 'jquery';
 
 let data = {
   name: 'syg'
@@ -10,8 +11,8 @@ const html = template(data);
 const mask = {
   init: function(){
     console.log(111);
-    document.getElementById('div').innerHTML = html;
+    $('#div').html(html);
   }
 }
 
-export default mask;
+export {mask};
