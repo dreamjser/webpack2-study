@@ -23,7 +23,7 @@ let config = {
 		path: __dirname,
 		publicPath: 'http://node.dreamjser.com/',
 		filename: paths.output + '[name].js',
-		chunkFilename: paths.ensure + '[hash].js',
+		chunkFilename: paths.ensure + '[name].js',
 		pathinfo: true
 	},
 	module: {
@@ -65,6 +65,9 @@ let config = {
 		modules: [__dirname, 'node_modules'],
 		alias: {
 			'mask': 'src/component/mask/mask.js',
+      'jquery': 'node_modules/jquery/dist/jquery.js',
+      'react': 'node_modules/react/dist/react.js',
+      'react-dom': 'node_modules/react-dom/dist/react-dom.js',
 		}
 	},
 	watch: true,

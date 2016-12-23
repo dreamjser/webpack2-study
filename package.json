@@ -7,7 +7,7 @@
   "author": "sunyg <1169771179@qq.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack-dev-server --hot"
+    "build": "webpack-dev-server --progress --colors"
   },
   "dependencies": {
     "babel-core": "^6.20.0",
@@ -32,8 +32,7 @@
     "run-sequence": "^1.2.2",
     "style-loader": "^0.13.1",
     "webpack": "v2.2.0-rc.0",
-    "webpack-dev-server": "^1.16.2",
-    "webpack-stream": "^3.2.0"
+    "webpack-dev-server": "^1.16.2"
   },
   "devDependencies": {}
 }
