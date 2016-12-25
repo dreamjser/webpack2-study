@@ -1,5 +1,4 @@
 const extractTextPlugin = require('extract-text-webpack-plugin');
-
 const webpack = require('webpack');
 const path = require('path');
 
@@ -12,6 +11,7 @@ let config = {
   context: __dirname,
   entry: {
     index: paths.entry + 'index.js',
+    page: paths.entry + 'page.js',
     lib: [
       'jquery',
       'react',
@@ -41,9 +41,8 @@ let config = {
       test: /\.css$/,
       exclude: './node_modules/',
       use: [
-        // 'style-loader',
+        'style-loader',
         extractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
           loader: 'css-loader'
         })
       ]
@@ -58,7 +57,9 @@ let config = {
   },
   plugins: [
     new extractTextPlugin({
-      filename: 'src/css/[name].css'
+      filename: 'src/css/[name].css',
+      disable: false,
+      allChunks: true
     }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['lib']
