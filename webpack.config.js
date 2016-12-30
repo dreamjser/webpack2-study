@@ -10,13 +10,7 @@ const paths = {
 let config = {
   context: __dirname,
   entry: {
-    index: paths.entry + 'index.js',
-    page: paths.entry + 'page.js',
-    lib: [
-      'jquery',
-      'react',
-      'react-dom',
-    ]
+    index: paths.entry + 'index.jsx'
   },
   output: {
     path: __dirname,
@@ -26,67 +20,61 @@ let config = {
     pathinfo: true
   },
   module: {
-    noParse: [
-      /^jquery$/,
-      /^react$/,
-      /^react-dom$/
-    ],
     rules: [{
+      test: /\.scss$/,
+      include: [
+        /src\/components/,
+        /src\/scss/,
+      ],
+      use: ['style', 'css', 'sass']
+    }, {
       test: /\.(js|jsx)$/,
-      exclude: './node_modules/',
-      use: [
-        'babel-loader',
-      ]
+      include: [
+        /src\/components/,
+        /src\/js\/entry/,
+        /src\/js\/modules/,
+      ],
+      use: ['babel']
     }, {
-      test: /\.css$/,
-      exclude: './node_modules/',
-      use: [
-        'style-loader',
-        extractTextPlugin.extract({
-          loader: 'css-loader'
-        })
-      ]
-
-    }, {
-      test: /\.pug$/,
-      exclude: './node_modules/',
-      use: [
-        'pug-loader'
-      ]
+      test: /\.(gif|png|jpg)$/,
+      include: [
+        /src\/components/,
+        /src\/images/,
+      ],
+      loader: 'url'
     }]
   },
   plugins: [
-    new extractTextPlugin({
-      filename: 'src/css/[name].css',
-      disable: false,
-      allChunks: true
+    new webpack.LoaderOptionsPlugin({
+      debug: true
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['lib']
-    }),
+    new webpack.optimize.CommonsChunkPlugin('common.js'),
   ],
   resolve: {
     modules: [__dirname, 'node_modules'],
-    extensions: [".js", ".json", ".jsx", ".css"],
+    extensions: [".js", ".json", ".jsx"],
     alias: {
-      'mask': 'src/component/mask/mask',
-      'top': 'src/component/top/top',
-      'jquery': 'node_modules/jquery/dist/jquery.min',
-      'react': 'node_modules/react/dist/react.min',
-      'react-dom': 'node_modules/react-dom/dist/react-dom.min',
+      'component': 'src/components',
+      'module': 'src/js/modules'
     }
+  },
+  resolveLoader: {
+    moduleExtensions: ["-loader"]
+  },
+  externals: {
+    'jquery': 'jQuery',
+    'react': 'React',
+    'react-dom': 'ReactDOM'
   },
   watch: true,
   watchOptions: {
     aggregateTimeout: 1000,
     ignored: './node_modules/',
   },
-  devServer: {
-    contentBase: path.join(__dirname, "src"),
-    compress: true,
-    port: 8000
+  devServer:{
+    port: 2000
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-source-map'
 }
 
 module.exports = config;

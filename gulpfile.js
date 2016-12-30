@@ -1,33 +1,47 @@
 'use strict';
 
 const gulp = require('gulp');
+// const gulpif = require('gulp-if');
+// const scss = require('gulp-sass');
+// const clean = require('gulp-clean');
+// const rev = require('gulp-rev');
+// const plumber = require('gulp-plumber');
+const uglify = require('gulp-uglify');
+const concat = require('gulp-concat');
+// const eslint = require('gulp-eslint');
+// const minicss = require('gulp-clean-css');
+// const revcss = require('gulp-rev-css-url');
+// const replace = require('gulp-replace');
 const connect = require('gulp-connect');
-const nodemon = require('gulp-nodemon');
+// const base64 = require('gulp-base64');
+// const imagemin = require('gulp-imagemin');
+// const optipng = require('imagemin-optipng');
+// const jpegtran = require('imagemin-jpegtran');
+// const spritesmith = require('gulp.spritesmith');
+// const sourcemaps = require('gulp-sourcemaps');
+// const autoprefixer = require('gulp-autoprefixer');
+// const environments = require('gulp-environments');
 const runSequence = require('run-sequence');
-const webpack = require('webpack-stream');
-const webpackDevServer = require("webpack-dev-server");
-const plumber = require('gulp-plumber');
+// const changed = require('gulp-changed');
 
-// 路径
-const paths = {
-	entry: 'app.js',
-	html: [
-		'src/views/**'
-	],
-  js: [
-    'src/js/**',
-    'src/components/**'
-  ]
+/****************************************** 变量 ********************************************/
+const path = {
+  src: 'src/',
+  dist: 'dist/'
 };
 
-// 监听的静态文件路径
-const watchAssets = {
-	sass: ['src/sass/**'],
-	js: [
-		'src/js/**',
-		'src/components/**'
-	]
-}
+/****************************************** 独立执行 ********************************************/
+
+gulp.task('js', function(){
+  return gulp.src([
+      'node_modules/promise-polyfill/promise.min.js',
+      'node_modules/react/dist/react.min.js',
+      'node_modules/react-dom/dist/react-dom.min.js'
+    ])
+    .pipe(concat('framework.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(path.src + 'js/utils'));
+});
 
 // 启动本地服务器
 gulp.task('connect', function () {
@@ -52,31 +66,3 @@ gulp.task('node', function () {
 	});
 })
 
-gulp.task('html', function () {
-	gulp.src(paths.html)
-		.pipe(connect.reload());
-});
-
-gulp.task('js', function () {
-  gulp.src(paths.html)
-    .pipe(connect.reload());
-});
-
-// js
-gulp.task('webpack', function () {
-	return gulp.src('')
-		.pipe(plumber())
-		.pipe(webpack(require('./webpack.config.js')))
-		.pipe(gulp.dest(''));
-});
-
-// 监听
-gulp.task('watch', function () {
-	gulp.watch(paths.html, ['html']);
-  gulp.watch(paths.js, ['js']);
-});
-
-// 开发 task
-gulp.task('build', function() {
-  runSequence(['webpack'], 'connect', 'watch');
-});
