@@ -7,7 +7,7 @@
   "author": "sunyg <1169771179@qq.com>",
   "license": "MIT",
   "scripts": {
-    "build": "node app.js & webpack --profile --colors --display-modules"
+    "build": "nodemon app.js & webpack --profile --colors --display-modules"
   },
   "dependencies": {
     "babel-core": "^6.20.0",

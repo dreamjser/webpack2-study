@@ -10,11 +10,11 @@ const paths = {
 let config = {
   context: __dirname,
   entry: {
-    index: paths.entry + 'index.jsx'
+    index: paths.entry + 'index'
   },
   output: {
     path: __dirname,
-    publicPath: '/',
+    publicPath: '//s1.dreamjser.com/',
     filename: paths.bundle + '[name].js',
     chunkFilename: paths.bundle + '[name].js',
     pathinfo: true
@@ -24,6 +24,7 @@ let config = {
       test: /\.scss$/,
       include: [
         /src\/components/,
+        /src\/routers/,
         /src\/scss/,
       ],
       use: ['style', 'css', 'sass']
@@ -31,6 +32,7 @@ let config = {
       test: /\.(js|jsx)$/,
       include: [
         /src\/components/,
+        /src\/routers/,
         /src\/js\/entry/,
         /src\/js\/modules/,
       ],
@@ -48,13 +50,14 @@ let config = {
     new webpack.LoaderOptionsPlugin({
       debug: true
     }),
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    new webpack.optimize.CommonsChunkPlugin('common'),
   ],
   resolve: {
     modules: [__dirname, 'node_modules'],
     extensions: [".js", ".json", ".jsx"],
     alias: {
       'component': 'src/components',
+      'router': 'src/routers',
       'module': 'src/js/modules'
     }
   },
