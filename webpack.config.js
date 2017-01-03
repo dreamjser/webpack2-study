@@ -10,7 +10,7 @@ const paths = {
 let config = {
   context: __dirname,
   entry: {
-    index: paths.entry + 'index'
+    redux: paths.entry + 'redux'
   },
   output: {
     path: __dirname,

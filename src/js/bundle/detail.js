@@ -1,6 +1,6 @@
 webpackJsonp([1,3],{
 
-/***/ 63:
+/***/ 68:
 /* unknown exports provided */
 /* all exports used */
 /*!*******************************************************!*\
@@ -13,7 +13,7 @@ webpackJsonp([1,3],{
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(/*! ./index.scss */ 69);
+__webpack_require__(/*! ./index.scss */ 72);
 
 var _react = __webpack_require__(/*! react */ 1);
 
@@ -52,7 +52,7 @@ module.exports = Detail;
 
 /***/ },
 
-/***/ 67:
+/***/ 70:
 /* unknown exports provided */
 /* all exports used */
 /*!****************************************************************************************!*\
@@ -60,7 +60,7 @@ module.exports = Detail;
   \****************************************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ./../../../../../~/css-loader/lib/css-base.js */ 65)();
+exports = module.exports = __webpack_require__(/*! ./../../../../../~/css-loader/lib/css-base.js */ 36)();
 // imports
 
 
@@ -72,7 +72,7 @@ exports.push([module.i, ".detail {\n  color: blue; }\n", ""]);
 
 /***/ },
 
-/***/ 69:
+/***/ 72:
 /* unknown exports provided */
 /* all exports used */
 /*!*********************************************************!*\
@@ -83,10 +83,10 @@ exports.push([module.i, ".detail {\n  color: blue; }\n", ""]);
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !./../../../../../~/css-loader!./../../../../../~/sass-loader!./index.scss */ 67);
+var content = __webpack_require__(/*! !./../../../../../~/css-loader!./../../../../../~/sass-loader!./index.scss */ 70);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(/*! ./../../../../../~/style-loader/addStyles.js */ 66)(content, {});
+var update = __webpack_require__(/*! ./../../../../../~/style-loader/addStyles.js */ 37)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
