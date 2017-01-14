@@ -50,9 +50,19 @@ class Counter extends Component {
     const { value, onIncreaseClick } = this.props
     return (
       <div>
-        <span>{value}</span>
+        <Cou />
         <button onClick={onIncreaseClick}>Increase</button>
       </div>
+    )
+  }
+}
+
+class Cou extends Component{
+  render(){
+    const {value} = this.props;
+    console.log(this.props);
+    return(
+      <div>{value}</div>
     )
   }
 }
